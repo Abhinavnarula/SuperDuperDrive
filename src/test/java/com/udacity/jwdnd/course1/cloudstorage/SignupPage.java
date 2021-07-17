@@ -29,14 +29,6 @@ public class SignupPage {
         js = (JavascriptExecutor) driver;
     }
 
-    public void setFirstName(String firstName) {
-        js.executeScript("arguments[0].value='" + firstName + "';", inputFirstName);
-    }
-
-    public void setLastName(String lastName) {
-        js.executeScript("arguments[0].value='" + lastName + "';", inputLastName);
-    }
-
     public void setUserName(String userName) {
         js.executeScript("arguments[0].value='" + userName + "';", inputUserName);
     }
@@ -48,4 +40,13 @@ public class SignupPage {
     public void signUp() {
         js.executeScript("arguments[0].click();", submitButton);
     }
+
+    public void setFirstName(String firstName) {
+        js.executeScript("arguments[0].value='" + firstName + "';", inputFirstName);
+    }
+
+    public void setLastName(String lastName) {
+        js.executeScript("arguments[0].value='" + lastName + "';", inputLastName);
+    }
+
 }

@@ -11,12 +11,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class CredentialTests extends CloudStorageApplicationTests {
 
-    public static final String BEATLES_URL = "https://www.thebeatles.com/";
-    public static final String MCCARTNEY_USERNAME = "mccartney";
-    public static final String MCCARTNEY_PASSWORD = "mary";
-    public static final String RINGO_URL = "http://www.ringostarr.com/";
-    public static final String RINGO_USERNAME = "starr";
-    public static final String RINGO_PASSWORD = "barbara";
+    public static final String GMAIL_URL = "https://www.gmail.com/";
+    public static final String GMAIL_USERNAME = "abhinavnarula98";
+    public static final String GMAIL_PASSWORD = "abhinav1998";
+    public static final String GMAIL2_URL = "http://www.gmail.com/";
+    public static final String GMAIL2_USERNAME = "anilpranav";
+    public static final String GMAIL2_PASSWORD = "abhiprabhi";
 
     /**
      * Test that creates a set of credentials, verifies that they are displayed, and
@@ -25,7 +25,7 @@ class CredentialTests extends CloudStorageApplicationTests {
     @Test
     public void testCredentialCreation() {
         HomePage homePage = signUpAndLogin();
-        createAndVerifyCredential(BEATLES_URL, MCCARTNEY_USERNAME, MCCARTNEY_PASSWORD, homePage);
+        createAndVerifyCredential(GMAIL_URL, GMAIL_USERNAME, GMAIL_PASSWORD, homePage);
         homePage.deleteCredential();
         ResultPage resultPage = new ResultPage(driver);
         resultPage.clickOk();
@@ -65,13 +65,13 @@ class CredentialTests extends CloudStorageApplicationTests {
     @Test
     public void testCredentialModification() {
         HomePage homePage = signUpAndLogin();
-        createAndVerifyCredential(BEATLES_URL, MCCARTNEY_USERNAME, MCCARTNEY_PASSWORD, homePage);
+        createAndVerifyCredential(GMAIL_URL, GMAIL_USERNAME, GMAIL_PASSWORD, homePage);
         Credential originalCredential = homePage.getFirstCredential();
         String firstEncryptedPassword = originalCredential.getPassword();
         homePage.editCredential();
-        String newUrl = RINGO_URL;
-        String newCredentialUsername = RINGO_USERNAME;
-        String newPassword = RINGO_PASSWORD;
+        String newUrl = GMAIL2_URL;
+        String newCredentialUsername = GMAIL2_USERNAME;
+        String newPassword = GMAIL2_PASSWORD;
         setCredentialFields(newUrl, newCredentialUsername, newPassword, homePage);
         homePage.saveCredentialChanges();
         ResultPage resultPage = new ResultPage(driver);
@@ -95,9 +95,9 @@ class CredentialTests extends CloudStorageApplicationTests {
     @Test
     public void testDeletion() {
         HomePage homePage = signUpAndLogin();
-        createCredential(BEATLES_URL, MCCARTNEY_USERNAME, MCCARTNEY_PASSWORD, homePage);
-        createCredential(RINGO_URL, RINGO_USERNAME, RINGO_PASSWORD, homePage);
-        createCredential("http://www.johnlennon.com/", "lennon", "julia", homePage);
+        createCredential(GMAIL_URL, GMAIL_USERNAME, GMAIL_PASSWORD, homePage);
+        createCredential(GMAIL2_URL, GMAIL2_USERNAME, GMAIL2_PASSWORD, homePage);
+        createCredential("http://www.facebook.com/", "abhinav", "narula", homePage);
         Assertions.assertFalse(homePage.noCredentials(driver));
         homePage.deleteCredential();
         ResultPage resultPage = new ResultPage(driver);

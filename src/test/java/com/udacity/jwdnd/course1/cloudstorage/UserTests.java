@@ -64,18 +64,18 @@ class UserTests {
         Assertions.assertEquals("Sign Up", driver.getTitle());
 
         SignupPage signupPage = new SignupPage(driver);
-        signupPage.setFirstName("John");
-        signupPage.setLastName("Lennon");
-        signupPage.setUserName("lennon");
-        signupPage.setPassword("julia");
+        signupPage.setFirstName("Abhinav");
+        signupPage.setLastName("Narula");
+        signupPage.setUserName("abhinavnarula");
+        signupPage.setPassword("abhinav98");
         signupPage.signUp();
 
         driver.get("http://localhost:" + this.port + "/login");
         Assertions.assertEquals("Login", driver.getTitle());
 
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.setUserName("lennon");
-        loginPage.setPassword("julia");
+        loginPage.setUserName("abhinavnarula");
+        loginPage.setPassword("abhinav98");
         loginPage.login();
 
         HomePage homePage = new HomePage(driver);

@@ -15,8 +15,8 @@ class NoteTests extends CloudStorageApplicationTests {
      */
     @Test
     public void testDelete() {
-        String noteTitle = "My Note";
-        String noteDescription = "This is my note.";
+        String noteTitle = "Random Note";
+        String noteDescription = "Random Note 1.";
         HomePage homePage = signUpAndLogin();
         createNote(noteTitle, noteDescription, homePage);
         homePage.navToNotesTab();
@@ -37,8 +37,8 @@ class NoteTests extends CloudStorageApplicationTests {
      */
     @Test
     public void testCreateAndDisplay() {
-        String noteTitle = "My Note";
-        String noteDescription = "This is my note.";
+        String noteTitle = "Random note number 2";
+        String noteDescription = "This is some random note number 2";
         HomePage homePage = signUpAndLogin();
         createNote(noteTitle, noteDescription, homePage);
         homePage.navToNotesTab();
@@ -55,16 +55,16 @@ class NoteTests extends CloudStorageApplicationTests {
      */
     @Test
     public void testModify() {
-        String noteTitle = "My Note";
-        String noteDescription = "This is my note.";
+        String noteTitle = "Random note 2";
+        String noteDescription = "This is some random note number 3";
         HomePage homePage = signUpAndLogin();
         createNote(noteTitle, noteDescription, homePage);
         homePage.navToNotesTab();
         homePage = new HomePage(driver);
         homePage.editNote();
-        String modifiedNoteTitle = "My Modified Note";
+        String modifiedNoteTitle = "My modified note number 3";
         homePage.modifyNoteTitle(modifiedNoteTitle);
-        String modifiedNoteDescription = "This is my modified note.";
+        String modifiedNoteDescription = "This is my modified note number 3.";
         homePage.modifyNoteDescription(modifiedNoteDescription);
         homePage.saveNoteChanges();
         ResultPage resultPage = new ResultPage(driver);
