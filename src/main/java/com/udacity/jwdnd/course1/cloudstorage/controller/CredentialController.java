@@ -4,6 +4,8 @@ import com.udacity.jwdnd.course1.cloudstorage.model.*;
 import com.udacity.jwdnd.course1.cloudstorage.services.CredentialService;
 import com.udacity.jwdnd.course1.cloudstorage.services.EncryptionService;
 import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +25,7 @@ public class CredentialController {
     private final EncryptionService encryptionService;
     private final UserService userService;
 
+    @Autowired
     public CredentialController(CredentialService credentialService, EncryptionService encryptionService,
             UserService userService) {
         this.credentialService = credentialService;
