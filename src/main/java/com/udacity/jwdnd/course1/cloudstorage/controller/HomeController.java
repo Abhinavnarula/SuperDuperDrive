@@ -17,9 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
-
 @Controller
 @RequestMapping("/home")
+
+// controller for file operations
 public class HomeController {
     private final FileService fileService;
     private final UserService userService;
@@ -55,6 +56,7 @@ public class HomeController {
         return user.getUserId();
     }
 
+    // adding file to the app
     @PostMapping
     public String newFile(Authentication authentication, @ModelAttribute("newFile") FileForm newFile,
             @ModelAttribute("newNote") NoteForm newNote, @ModelAttribute("newCredential") CredentialForm newCredential,
@@ -85,12 +87,14 @@ public class HomeController {
         return "result";
     }
 
-    @GetMapping(value = "/get-file/{fileName}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    // downloading of file in local computer
+    @GetMapping(value = "/getFile/{fileName}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public @ResponseBody byte[] getFile(@PathVariable String fileName) {
         return fileService.getFile(fileName).getFileData();
     }
 
-    @GetMapping(value = "/delete-file/{fileName}")
+    // delete operation
+    @GetMapping(value = "/deleteFile/{fileName}")
     public String deleteFile(Authentication authentication, @PathVariable String fileName,
             @ModelAttribute("newFile") FileForm newFile, @ModelAttribute("newNote") NoteForm newNote,
             @ModelAttribute("newCredential") CredentialForm newCredential, Model model) {

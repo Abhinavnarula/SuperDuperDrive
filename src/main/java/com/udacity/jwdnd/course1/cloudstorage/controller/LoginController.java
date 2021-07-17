@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/login")
+// login page access and connecting to thymeleaf template
 public class LoginController {
 
     @GetMapping()

@@ -36,18 +36,18 @@ public class NoteController {
         return user.getUserId();
     }
 
-    @PostMapping("add-note")
+    @PostMapping("addNote")
     public String newNote(Authentication authentication, @ModelAttribute("newFile") FileForm newFile,
             @ModelAttribute("newNote") NoteForm newNote, @ModelAttribute("newCredential") CredentialForm newCredential,
             Model model) {
         String userName = authentication.getName();
         String newTitle = newNote.getTitle();
-        String noteIdStr = newNote.getNoteId();
+        String noteIdString = newNote.getNoteId();
         String newDescription = newNote.getDescription();
-        if (noteIdStr.isEmpty()) {
+        if (noteIdString.isEmpty()) {
             noteService.addNote(newTitle, newDescription, userName);
         } else {
-            Note existingNote = getNote(Integer.parseInt(noteIdStr));
+            Note existingNote = getNote(Integer.parseInt(noteIdString));
             noteService.updateNote(existingNote.getNoteId(), newTitle, newDescription);
         }
         Integer userId = getUserId(authentication);
@@ -57,12 +57,12 @@ public class NoteController {
         return "result";
     }
 
-    @GetMapping(value = "/get-note/{noteId}")
+    @GetMapping(value = "/getNote/{noteId}")
     public Note getNote(@PathVariable Integer noteId) {
         return noteService.getNote(noteId);
     }
 
-    @GetMapping(value = "/delete-note/{noteId}")
+    @GetMapping(value = "/deleteNote/{noteId}")
     public String deleteNote(Authentication authentication, @PathVariable Integer noteId,
             @ModelAttribute("newNote") NoteForm newNote, @ModelAttribute("newFile") FileForm newFile,
             @ModelAttribute("newCredential") CredentialForm newCredential, Model model) {

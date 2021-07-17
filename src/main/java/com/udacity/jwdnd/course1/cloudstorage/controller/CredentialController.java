@@ -14,6 +14,9 @@ import java.util.Base64;
 
 @Controller
 @RequestMapping("/credential")
+
+// Controller for accessing and basic CRUD operations in the credential saving
+// section.
 public class CredentialController {
 
     private final CredentialService credentialService;
@@ -27,6 +30,7 @@ public class CredentialController {
         this.userService = userService;
     }
 
+    // for displaying home page
     @GetMapping
     public String getHomePage(Authentication authentication, @ModelAttribute("newFile") FileForm newFile,
             @ModelAttribute("newCredential") CredentialForm newCredential, @ModelAttribute("newNote") NoteForm newNote,
@@ -39,29 +43,35 @@ public class CredentialController {
         return "home";
     }
 
-    @PostMapping("add-credential")
+    @PostMapping("addCredential")
     public String newCredential(Authentication authentication, @ModelAttribute("newFile") FileForm newFile,
             @ModelAttribute("newCredential") CredentialForm newCredential, @ModelAttribute("newNote") NoteForm newNote,
             Model model) {
+
+        // getting url, username and password from form fields
         String userName = authentication.getName();
         String newUrl = newCredential.getUrl();
-        String credentialIdStr = newCredential.getCredentialId();
+        String credentialIdString = newCredential.getCredentialId();
         String password = newCredential.getPassword();
 
+        // random number generation for encrypting the credentials
         SecureRandom random = new SecureRandom();
         byte[] key = new byte[16];
         random.nextBytes(key);
         String encodedKey = Base64.getEncoder().encodeToString(key);
         String encryptedPassword = encryptionService.encryptValue(password, encodedKey);
 
-        if (credentialIdStr.isEmpty()) {
+        // if present then added as a new value, else updated.
+        if (credentialIdString.isEmpty()) {
             credentialService.addCredential(newUrl, userName, newCredential.getUserName(), encodedKey,
                     encryptedPassword);
         } else {
-            Credential existingCredential = getCredential(Integer.parseInt(credentialIdStr));
+            Credential existingCredential = getCredential(Integer.parseInt(credentialIdString));
             credentialService.updateCredential(existingCredential.getCredentialid(), newCredential.getUserName(),
                     newUrl, encodedKey, encryptedPassword);
         }
+
+        // passed to the thymeleaf template "result"
         User user = userService.getUser(userName);
         model.addAttribute("credentials", credentialService.getCredentialListings(user.getUserId()));
         model.addAttribute("encryptionService", encryptionService);
@@ -70,12 +80,14 @@ public class CredentialController {
         return "result";
     }
 
-    @GetMapping(value = "/get-credential/{credentialId}")
+    // get request for getting credential values
+    @GetMapping("/getCredential/{credentialId}")
     public Credential getCredential(@PathVariable Integer credentialId) {
         return credentialService.getCredential(credentialId);
     }
 
-    @GetMapping(value = "/delete-credential/{credentialId}")
+    // delete operation.
+    @GetMapping(value = "/deleteCredential/{credentialId}")
     public String deleteCredential(Authentication authentication, @PathVariable Integer credentialId,
             @ModelAttribute("newCredential") CredentialForm newCredential, @ModelAttribute("newFile") FileForm newFile,
             @ModelAttribute("newNote") NoteForm newNote, Model model) {

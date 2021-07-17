@@ -20,29 +20,29 @@ public class SignupController {
     }
 
     @GetMapping()
-    public String signupView() {
+    public String signupViewPage() {
         return "signup";
     }
 
     @PostMapping()
-    public String signupUser(@ModelAttribute User user, Model model) {
-        String signupError = null;
+    public String signupUserCredential(@ModelAttribute User user, Model model) {
+        String errorString = null;
 
         if (!userService.isUsernameAvailable(user.getUsername())) {
-            signupError = "The username already exists.";
+            errorString = "The username already exists.";
         }
 
-        if (signupError == null) {
+        if (errorString == null) {
             int rowsAdded = userService.createUser(user);
             if (rowsAdded < 0) {
-                signupError = "There was an error signing you up. Please try again.";
+                errorString = "There was an error signing you up. Please try again.";
             }
         }
 
-        if (signupError == null) {
+        if (errorString == null) {
             model.addAttribute("signupSuccess", true);
         } else {
-            model.addAttribute("signupError", signupError);
+            model.addAttribute("signupError", errorString);
         }
 
         return "signup";

@@ -59,9 +59,9 @@
                                 <tr th:each="file : ${files}">
                                     <td>
                                         <a target="_blank" class="btn btn-success"
-                                            th:href="@{/home/get-file/{file}(file = ${file})}">View</a>
+                                            th:href="@{/home/getFile/{file}(file = ${file})}">View</a>
                                         <a class="btn btn-danger"
-                                            th:href="@{/home/delete-file/{file}(file = ${file})}">Delete</a>
+                                            th:href="@{/home/deleteFile/{file}(file = ${file})}">Delete</a>
                                     </td>
                                     <th scope="row" th:text="${file}">ExampleFile.txt</th>
                                 </tr>
@@ -94,7 +94,7 @@
                                             Edit
                                         </button>
                                         <a id="ancDeleteNote" class="btn btn-danger"
-                                            th:href="@{/note/delete-note/{noteId}(noteId = ${note.getNoteId()})}">Delete</a>
+                                            th:href="@{/note/deleteNote/{noteId}(noteId = ${note.getNoteId()})}">Delete</a>
                                     </td>
                                     <th id="tableNoteTitle" scope="row" th:text="${note.getNoteTitle()}">Example Note
                                         Title</th>
@@ -116,7 +116,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="#" method="POST" th:action="@{/note/add-note}" th:object="${newNote}">
+                                    <form action="#" method="POST" th:action="@{/note/addNote}" th:object="${newNote}">
                                         <input type="hidden" name="noteId" th:field="*{noteId}" id="note-id">
                                         <div class="form-group">
                                             <label for="note-title" class="col-form-label">Title</label>
@@ -170,7 +170,7 @@
                                             th:onclick="showCredentialModal(this.getAttribute('data-id'), this.getAttribute('data-url'), this.getAttribute('data-username'), this.getAttribute('data-decryptedPassword'))">
                                             Edit</button>
                                         <a class="btn btn-danger" id="aDeleteCredential"
-                                            th:href="@{/credential/delete-credential/{credentialId}(credentialId = ${credential.getCredentialid()})}">Delete</a>
+                                            th:href="@{/credential/deleteCredential/{credentialId}(credentialId = ${credential.getCredentialid()})}">Delete</a>
                                     </td>
                                     <th id="tblCredentialUrl" scope="row" th:text="${credential.getUrl()}">Example
                                         Credential URL</th>
@@ -194,7 +194,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="#" method="POST" th:action="@{/credential/add-credential}"
+                                    <form action="#" method="POST" th:action="@{/credential/addCredential}"
                                         th:object="${newCredential}">
                                         <input type="hidden" name="credentialId" th:field="*{credentialId}"
                                             id="credential-id">
